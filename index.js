@@ -8,16 +8,26 @@ if (process.argv.length < 4) {
 }
 
 var read = function(file) {
-    return fs.readFileSync(file, 'utf8')
-        .split(/\n/)
-        .filter(function(line) {
-            return line;
-        })
-        .reduce(function(map, line) {
+    try {
+        var lines = fs.readFileSync(file, 'utf8')
+            .split(/\n/)
+            .filter(function(line) {
+                return line;
+            });
+
+        if (lines.length === 1) {
+            return JSON.parse(lines);
+        }
+
+        return lines.reduce(function(map, line) {
             var obj = JSON.parse(line);
             map[obj._id] = obj;
             return map;
         }, {});
+
+    } catch(e) {
+        return JSON.parse(fs.readFileSync(file, 'utf8'));
+    }
 };
 
 var diff = difflet({
@@ -30,13 +40,6 @@ var next = read(process.argv[3]);
 
 Object.keys(prev).forEach(function(key) {
     if (deepEqual(prev[key], next[key])) {
-        delete prev[key];
-        delete next[key];
-    }
-});
-
-Object.keys(next).forEach(function(key) {
-    if (deepEqual(next[key], prev[key])) {
         delete prev[key];
         delete next[key];
     }
