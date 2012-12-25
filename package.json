@@ -1,6 +1,6 @@
 {
   "name": "chau",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "colorful diffs for MongoDB's JSON",
   "main": "index.js",
   "scripts": {
