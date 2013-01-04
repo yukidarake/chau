@@ -19,7 +19,9 @@
   "license": "MIT",
   "dependencies": {
     "deep-equal": "0.0.0",
-    "difflet": "~0.2.3"
+    "difflet": "~0.2.3",
+    "request": "~2.12.0",
+    "async": "~0.1.22"
   },
   "devDependencies": {
     "should": "~1.2.1",
